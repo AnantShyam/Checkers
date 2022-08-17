@@ -148,6 +148,8 @@ def parse_user_input(init, fin):
 def play_checkers():
     print("Welcome to Checkers! To play this game on the command line, please note the following: ")
     print()
+    print("A king is represented by a capital letter.")
+    print()
     print("Please enter the square you are either on or want to move to as for instance 'D3' ")
     print()
     print("Enjoy the game, and good luck!")
