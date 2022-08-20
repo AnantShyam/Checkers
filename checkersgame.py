@@ -1,3 +1,6 @@
+import random
+from typing import final
+
 def create_board():
     board = []
     for i in range(0, 8):
@@ -19,7 +22,6 @@ def display_board(board):
     letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
     print([i for i in letters])
     for i in range(len(board)):
-
         print(board[i], end= ' ')
         print([str(8 - i)])
         
@@ -220,5 +222,48 @@ def play_checkers():
     else:
         print("Congratulations, " + players[0] + " you win!")
 
+def play_with_AI():
+    #in progress
+    board = create_board()
+
+def select_random_move(board, isPlayer1, isKing):
+    possmoves = []
+    final_coord = None
+    initial_coord = None
+    if jumpExists(board, isPlayer1)[0]:
+        possmoves = jumpExists(board, isPlayer1)[1]
+        final_coord = random.randchoice(possmoves)
+        init_coords = []
+        for i in range(len(board)):
+            for j in range(len(board[i])):
+                if isLegalJump(board, (i, j), final_coord, isPlayer1):
+                    init_coords.append((i, j))
+        initial_coord = random.randchoice(init_coords)
+        jump(board, initial_coord, final_coord, isPlayer1, isKing)
+    else:
+        fin_to_init = {}
+        for i in range(len(board)):
+            for j in range(len(board[i])):
+                if isPlayer1:
+                    if isKing:
+                        for pt in [(i + 1, j + 1), (i + 1, j - 1), (i - 1, j + 1), (i - 1, j - 1)]:
+                            if isLegalStep(board, (i, j), pt, isKing):
+                                if pt not in fin_to_init:
+                                    fin_to_init[pt] = [(i, j)]
+                                else:
+                                    fin_to_init[pt].append((i, j))
+                    else:
+                        #work on this
+                        pass
+                else:
+                    #work on this
+                    pass
+        initial_coords = list(fin_to_init.keys())
+        initial_coord = random.randchoice(initial_coords)
+        for point in fin_to_init:
+            if point == initial_coord:
+                final_coord = random.randchoice(fin_to_init[point])
+        step(board, initial_coord, final_coord, isPlayer1, isKing)
+        
 play_checkers()
 
