@@ -1,5 +1,5 @@
+
 import random
-from typing import final
 
 def create_board():
     board = []
@@ -22,9 +22,14 @@ def display_board(board):
     letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
     print([i for i in letters])
     for i in range(len(board)):
+
         print(board[i], end= ' ')
         print([str(8 - i)])
         
+
+
+        print(board[i], end= ' ')
+        print([str(8 - i)])
 
 def isInBounds(pos):
     return pos[0] >= 0 and pos[0] <=7 and pos[1] >= 0 and pos[1] <= 7
@@ -87,7 +92,8 @@ def jumpExists(board, isPlayer1):
                 if isInBounds(pos) and isLegalJump(board, (i, j), pos, isPlayer1):
                     jmp_pos.append(pos)
     return [len(jmp_pos) != 0, jmp_pos]
-                    
+
+                
 
 def step(board, init, fin, isPlayer1, isKing, numsteps = 1):
     if isLegalStep(board, init, fin, isPlayer1, isKing, numsteps):
@@ -107,13 +113,14 @@ def step(board, init, fin, isPlayer1, isKing, numsteps = 1):
                     board[fin[0]][fin[1]] = 'X'
                 else:
                     board[fin[0]][fin[1]] = 'x'
+
         board[init[0]][init[1]] = ' ' 
-    
+
     if numsteps == 2:
         mid_y = int((init[0] + fin[0])/2)
         mid_x = int((init[1] + fin[1])/2)
         board[mid_y][mid_x] = ' '
-    
+
 
 def jump(board, init, fin, isPlayer1, isKing):
     if isLegalJump(board, init, fin, isPlayer1):
@@ -146,13 +153,14 @@ def parse_user_input(init, fin):
         interpreted_points.append((ypos, xpos))
     return interpreted_points
 
-  
+
 def play_checkers():
     print("Welcome to Checkers! To play this game on the command line, please note the following: ")
     print()
-    print("A king is represented by a capital letter.")
+    print("A king is represented by a capital letter. ")
     print()
-    print("Please enter the square you are either on or want to move to as for instance 'D3' ")
+    print("Please enter the square you are either on or want to move to as for instance: D3.")
+
     print()
     print("Enjoy the game, and good luck!")
     print()
@@ -177,7 +185,7 @@ def play_checkers():
             try:
                 player_input_init = input(players[idx] + ", please enter the current position of the piece you want to move: ")
                 player_input_fin = input(players[idx] + ", please enter the final position of the piece you want to move: ")
-                
+
                 poslist = parse_user_input(player_input_init, player_input_fin)
 
                 player_initpos = poslist[0]
@@ -211,7 +219,7 @@ def play_checkers():
                     loopcontinue = False
                 else:
                     raise Exception()
-            
+
             except:
                 print()
                 print("Sorry, invalid positions!")
@@ -221,6 +229,7 @@ def play_checkers():
         print("Congratulations, " + players[1] + " you win!")
     else:
         print("Congratulations, " + players[0] + " you win!")
+
 
 def play_with_AI():
     #in progress
@@ -266,4 +275,5 @@ def select_random_move(board, isPlayer1, isKing):
         step(board, initial_coord, final_coord, isPlayer1, isKing)
         
 play_checkers()
+
 
